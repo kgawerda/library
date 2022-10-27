@@ -35,7 +35,7 @@ function addBookCard() {
     const title = document.createElement('p');
     const author = document.createElement('p');
     const pages = document.createElement('p');
-    const read = document.createElement('p');
+    const read = document.createElement('button');
     const rmButton = document.createElement('button');
 
     bookcard.classList.add('book-card');
@@ -51,7 +51,8 @@ function addBookCard() {
     pages.textContent = pagesVal + " pages";
     rmButton.textContent = "Remove";
 
-    rmButton.setAttribute('id','rmButton')
+    rmButton.setAttribute('id', 'rmButton')
+    read.setAttribute('id', 'readButton')
 
     if (readVal) {
         read.classList.add('read');
@@ -81,6 +82,10 @@ function removeBook(id) {
     };
 }
 
+Book.prototype.toggleRead = function () {
+    this.read = !this.read;
+}
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     addBookCard();
@@ -88,8 +93,24 @@ form.addEventListener('submit', (event) => {
     form.reset();
 });
 
-document.addEventListener('click',function(e){
-    if(e.target && e.target.id== 'rmButton'){
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.id == 'rmButton') {
         removeBook(e.target.parentNode.dataset.arrayid);
-     }
- });
+    }
+});
+
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.id == 'readButton') {
+        myLibrary[e.target.parentNode.dataset.arrayid].toggleRead();
+        if (e.target.classList.contains('not-read')) {
+            e.target.classList.remove('not-read');
+            e.target.classList.add('read');
+            e.target.textContent = "Read";
+        }
+        else {
+            e.target.classList.remove('read');
+            e.target.classList.add('not-read');
+            e.target.textContent = "Not read";
+        }
+    }
+});

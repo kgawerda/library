@@ -93,3 +93,10 @@ button {
     padding: 10px 0px;
     text-align: center;
 }
+
+.read{
+    border-color: greenyellow;
+}
+.not-read{
+    border-color: red;
+}
