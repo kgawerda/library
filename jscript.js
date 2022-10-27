@@ -1,3 +1,8 @@
+let myLibrary=[];
+
+const form  = document.getElementById('addBookForm');
+
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -11,15 +16,17 @@ Book.prototype.info = function () {
     return string;
 }
 
-function addBookToLibrary(title, author, pages, read, library){
+function addBookToLibrary(){
+    const title=form.elements['title'].value;
+    const author=form.elements['author'].value;
+    const pages=form.elements['pages'].value;
+    const read=form.elements['read'].checked;
     let book=new Book(title, author, pages, read);
-    library.push(book);
+    myLibrary.push(book);
 }
 
-let myLibrary=[];
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false, myLibrary);
-
-
-//let hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
-myLibrary[0].read = true;
-console.log(myLibrary[0].info());
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    addBookToLibrary();
+    form.reset();
+});
