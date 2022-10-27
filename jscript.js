@@ -36,29 +36,49 @@ function addBookCard() {
     const author = document.createElement('p');
     const pages = document.createElement('p');
     const read = document.createElement('p');
+    const rmButton = document.createElement('button');
 
     bookcard.classList.add('book-card');
     title.classList.add('title');
     author.classList.add('author');
     pages.classList.add('pages');
-    
 
-    title.textContent="~"+titleVal+"~";
-    author.textContent=authorVal;
-    pages.textContent=pagesVal+" pages";
-    if(readVal){
+
+
+
+    title.textContent = "~" + titleVal + "~";
+    author.textContent = authorVal;
+    pages.textContent = pagesVal + " pages";
+    rmButton.textContent = "Remove";
+
+    rmButton.setAttribute('id','rmButton')
+
+    if (readVal) {
         read.classList.add('read');
-        read.textContent="Read";
+        read.textContent = "Read";
     }
-    else{
+    else {
         read.classList.add('not-read');
-        read.textContent="Not read";
+        read.textContent = "Not read";
     }
     bookcard.appendChild(title);
     bookcard.appendChild(author);
     bookcard.appendChild(pages);
     bookcard.appendChild(read);
+    bookcard.appendChild(rmButton);
     grid.appendChild(bookcard);
+    bookcard.dataset.arrayid = myLibrary.length;
+
+}
+
+function removeBook(id) {
+    myLibrary.slice(id);
+    const bookCard = document.querySelector('[data-arrayid="' + id + '"]');
+    bookCard.remove();
+    var collection = document.getElementsByClassName('book-card');
+    for (var i = 0; i < collection.length; i++) { //reassigns proper data-arrayid
+        collection[i].dataset.arrayid = i;
+    };
 }
 
 form.addEventListener('submit', (event) => {
@@ -67,3 +87,9 @@ form.addEventListener('submit', (event) => {
     addBookToLibrary();
     form.reset();
 });
+
+document.addEventListener('click',function(e){
+    if(e.target && e.target.id== 'rmButton'){
+        removeBook(e.target.parentNode.dataset.arrayid);
+     }
+ });
