@@ -11,6 +11,15 @@ Book.prototype.info = function () {
     return string;
 }
 
-let hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
-hobbit.read = true;
-console.log(hobbit.info());
+function addBookToLibrary(title, author, pages, read, library){
+    let book=new Book(title, author, pages, read);
+    library.push(book);
+}
+
+let myLibrary=[];
+addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false, myLibrary);
+
+
+//let hobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, false);
+myLibrary[0].read = true;
+console.log(myLibrary[0].info());
