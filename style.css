@@ -82,8 +82,8 @@ input {
     height: 2.5vh;
 }
 button {
-    margin-left: 5vw;
-    margin-right: 5vw;
+    margin-left: 5%;
+    margin-right: 5%;
     background-color: rgb(17, 17, 16, 0.7);
     color: #e6007e;
     font-weight: 700;
