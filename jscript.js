@@ -1,7 +1,7 @@
-let myLibrary=[];
+let myLibrary = [];
 
-const form  = document.getElementById('addBookForm');
-
+const form = document.getElementById('addBookForm');
+const grid = document.getElementById('bookGrid');
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -16,17 +16,54 @@ Book.prototype.info = function () {
     return string;
 }
 
-function addBookToLibrary(){
-    const title=form.elements['title'].value;
-    const author=form.elements['author'].value;
-    const pages=form.elements['pages'].value;
-    const read=form.elements['read'].checked;
-    let book=new Book(title, author, pages, read);
+function addBookToLibrary() {
+    const title = form.elements['title'].value;
+    const author = form.elements['author'].value;
+    const pages = form.elements['pages'].value;
+    const read = form.elements['read'].checked;
+    let book = new Book(title, author, pages, read);
     myLibrary.push(book);
+}
+
+function addBookCard() {
+    const titleVal = form.elements['title'].value;
+    const authorVal = form.elements['author'].value;
+    const pagesVal = form.elements['pages'].value;
+    const readVal = form.elements['read'].checked;
+
+    const bookcard = document.createElement('div');
+    const title = document.createElement('p');
+    const author = document.createElement('p');
+    const pages = document.createElement('p');
+    const read = document.createElement('p');
+
+    bookcard.classList.add('book-card');
+    title.classList.add('title');
+    author.classList.add('author');
+    pages.classList.add('pages');
+    
+
+    title.textContent="~"+titleVal+"~";
+    author.textContent=authorVal;
+    pages.textContent=pagesVal+" pages";
+    if(readVal){
+        read.classList.add('read');
+        read.textContent="Read";
+    }
+    else{
+        read.classList.add('not-read');
+        read.textContent="Not read";
+    }
+    bookcard.appendChild(title);
+    bookcard.appendChild(author);
+    bookcard.appendChild(pages);
+    bookcard.appendChild(read);
+    grid.appendChild(bookcard);
 }
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    addBookCard();
     addBookToLibrary();
     form.reset();
 });
